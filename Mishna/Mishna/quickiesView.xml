@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<view  icon ="8100" title ="Quickies" width="40" height="400">
+
+  <control progid="DecalControls.Notebook" name="nbMain">
+    <page label="">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.List" name="lstQuickies" left="5" top="2" width="35" height="380">
+
+          <column progid="DecalControls.IconColumn" name="colIcon"  fixedwidth="20"/>
+          <column progid="DecalControls.TextColumn" name="colObj" />
+          <column progid="DecalControls.TextColumn" name="colGUID" />
+
+
+
+        </control>
+      </control>
+    </page>
+  </control>
+</view>

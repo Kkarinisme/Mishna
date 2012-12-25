@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<view icon="8770" title="Mishna" width="530" height="400">
+  <control progid="DecalControls.Notebook" name="nbMain">
+    <page label="Main">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.PushButton" name="btnGetInventory" left="16" top="40" width="200" height="24" textcolor="16777215" text="Do Inventory Complete"/>
+        <control progid ="DecalControls.StaticText" name="lblSetup" left ="330" top ="5" height="24" width ="70" textcolor ="16777215" text="OPTIONS"/>
+        <control progid="DecalControls.Checkbox" name="chkInventory" left="270" top="30" width="300" height="24" textcolor="16777215" text="Inventory on Startup"/>
+        <control progid="DecalControls.StaticText" name="lblInventoryExpl" left="290" top="50" width="300" height="24" textcolor="16777215" text="Complete if first time otherwise brief update."/>
+        <control progid="DecalControls.Checkbox" name="chkInventoryBurden" left="270" top="80" width="300" height="24" textcolor="16777215" text="Update stacked items on Startup"/>
+        <control progid="DecalControls.PushButton" name="btnUpdateInventory" left="16" top="90" width="200" height="24" textcolor="16777215" text="Update Toon Inventory"/>
+        <control progid="DecalControls.Checkbox" name="chkInventoryComplete" left="270" top="110" width="300" height="24" textcolor="16777215" text="Complete inventory on Startup"/>
+        <control progid="DecalControls.Checkbox" name="chkInventoryWaiting" left="270" top="160" width="200" height="24" textcolor="16777215" text="List inventory waiting to be id'd"/>
+        <control progid="DecalControls.PushButton" name="btnGetBurden" left="16" top="140" width="200" height="24" textcolor="16777215" text="Update burdens of Stacked Items"/>
+        <control progid="DecalControls.PushButton" name="btnGetToonStats" left="16" top="190" width="200" height="24" textcolor="16777215" text="Get Toon Stats"/>
+        <control progid="DecalControls.Checkbox" name="chkStats" left="270" top="190" width="200" height="24" textcolor="16777215" text="Renew Stats on Startup"/>
+
+        <!--   <control progid="DecalControls.PushButton" name="btnGetToonArmor" left="16" top="190" width="200" height="24" textcolor="16777215" text="Find Toon Armor"/> -->
+    <!--  <control progid="DecalControls.Checkbox" name="chkQuickSlots" left="270" top="190" width="200" height="24" textcolor="16777215" text="Use QuickSlots"/> -->
+      </control>
+    </page>
+    <page label="Inventory">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid ="DecalControls.StaticText" name="lblClass" left ="5" top ="5" height="24" width ="40" textcolor ="16777215" text="Class:"/>
+        <control progid="DecalControls.Choice" name="cmbSelectClass" left="50" top="5" width="120" height="24" textcolor="16777215" >
+          <option text="None" data="1"/>
+          <option text="Armor" data="2"/>
+          <option text="Clothing" data="3"/>
+          <option text="Jewelry" data="4"/>
+          <option text="WandStaffOrb" data="5"/>
+          <option text="MeleeWeapon" data="6"/>
+          <option text="MissileWeapon" data="7"/>
+          <option text="Salvage" data="8"/>
+          <option text="Scroll" data="9"/>
+          <option text="HealingKit" data="10"/>
+          <option text="Food" data="11"/>
+          <option text="Gem" data="12"/>
+          <option text="CraftedFletching" data="13"/>
+          <option text="BaseCooking" data="14"/>
+          <option text="CraftedAlchemy" data="15"/>
+          <option text="SpellComponent" data="15"/>
+          <option text="Key" data="17"/>
+          <option text="Misc" data="18"/>
+          <option text="ManaStone" data="19"/>
+          <option text="BooksPaper" data="20"/>
+          <option text="TradeNote" data="21"/>
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblText" left ="200" top ="5" height="24" width ="70" textcolor ="16777215" text="Type here:"/>
+        <control progid="DecalControls.Edit" name ="txbSelect" left ="260" top="5" width="200" height="24" textcolor ="16777215"  />
+
+        <control progid ="DecalControls.StaticText" name="lblWeapons" left ="40" top ="30" height="24" width ="120" textcolor ="16777215" text="WEAPONS"/>
+        <control progid ="DecalControls.StaticText" name="lblArmor" left ="180" top ="30" height="24" width ="180" textcoor ="16777215" text="ARMOR/CLOTHING/AETHERIA"/>
+        <control progid ="DecalControls.StaticText" name="lblSalvage" left ="420" top ="30" height="24" width ="120" textcolor ="16777215" text="SALVAGE"/>
+
+        <control progid ="DecalControls.StaticText" name="lblMelee" left ="5" top ="55" height="24" width ="22" textcolor ="16777215" text="Mel:"/>
+        <control progid="DecalControls.Choice" name="cmbWieldAttrib" left="30" top="55" width="120" height="24" textcolor="16777215" >
+          <option text="None" data="1"/>
+         <option text="TwoHand" data="2"/>
+          <option text="Heavy" data="3"/>
+          <option text="Light" data="4"/>
+          <option text="Finesse" data="5"/>
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblSet" left ="160" top ="55" height="24" width ="22" textcolor ="16777215" text="Set:"/>
+        <control progid="DecalControls.Choice" name="cmbArmorSet" left="185" top="55" width="200" height="24" textcolor="16777215" >
+          <option text="None" data="1"/>
+          <option text="Noble" data="2"/>
+          <option text="Soldiers" data="3"/>
+          <option text="Adept" data="4"/>
+          <option text="Archers" data="5"/>
+          <option text="Defenders" data="6"/>
+          <option text="Tinkers" data="7"/>
+          <option text="Crafters" data="8"/>
+          <option text="Hearty" data="9"/>
+          <option text="Dexterous" data="10"/>
+          <option text="Wise" data="11"/>
+          <option text="Swift" data="12"/>
+          <option text="Hardened" data="13"/>
+          <option text="Reinforced" data="14"/>
+          <option text="Interlocking" data="15"/>
+          <option text="Flame_Proof" data="16"/>
+          <option text="Acid_Proof" data="17"/>
+          <option text="Cold_Proof" data="18"/>
+          <option text="Lightning_Proof" data="19"/>
+          <option text="Dedication" data="20"/>
+          <option text="Gladiatorial_Clothing" data="21"/>
+          <option text="Protective_Clothing" data="22"/>
+          <option text="Sigil of Defense" data="23"/>
+          <option text="Sigil of Destruction" data="24"/>
+          <option text="Sigil of Fury" data="25"/>
+          <option text="Sigil of Growth" data="26"/>
+          <option text="Sigil of Vigor" data="27"/>
+          <option text="Weave of Alchemy" data="28"/>
+          <option text="Weave of Arcane Lore" data="29"/>
+          <option text="Weave of Armor Tinkering" data="30"/>
+          <option text="Weave of Assess Person" data="31"/>
+           <option text="Weave of Light Weapons" data="32"/>
+          <option text="Weave of Missile Weapons" data="33"/>
+          <option text="Weave of Cooking" data="34"/>
+          <option text="Weave of Creature Enchantment" data="35"/>
+          <option text="Weave of Missile Weapons" data="36"/>
+          <option text="Weave of Finesse Weapons" data="37"/>
+          <option text="Weave of Deception" data="38"/>
+          <option text="Weave of Fletching" data="39"/>
+          <option text="Weave of Healing" data="40"/>
+          <option text="Weave of Item Enchantment" data="41"/>
+          <option text="Weave of Item Tinkering" data="42"/>
+          <option text="Weave of Leadership" data="43"/>
+          <option text="Weave of Life Magic" data="44"/>
+          <option text="Weave of Lockpick" data="45"/>
+          <option text="Weave of Light Weapons" data="46"/>
+          <option text="Weave of Magic Defense" data="47"/>
+          <option text="Weave of Magic Item Tinkering" data="48"/>
+          <option text="Weave of Mana Conversion" data="49"/>
+          <option text="Weave of Melee Defense" data="50"/>
+          <option text="Weave of Missile Defense" data="51"/>
+          <option text="Weave of Salvaging" data="52"/>
+          <option text="Weave of Light Weapons" data="53"/>
+          <option text="Weave of Light Weapons" data="54"/>
+          <option text="Weave of Heavy Weapons" data="55"/>
+          <option text="Weave of Unknown" data="56"/>
+          <option text="Weave of Two Handed Combat" data="57"/>
+          <option text="Weave of Light Weapon" data="58"/>
+          <option text="Weave of Void Magic" data="59"/>
+          <option text="Weave of War Magic" data="60"/>
+          <option text="Weave of Weapon Tinkering" data="61"/>
+          <option text="Weave of Dirty Fighting" data="62"/>
+          <option text="Weave of Dual Wield" data="63"/>
+          <option text="Weave of Recklessness" data="64"/>
+          <option text="Weave of Shield" data="65"/>
+          <option text="Weave of Sneak Attack" data="66"/>
+
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblMaterial" left ="400" top ="55" height="24" width ="22" textcolor ="16777215" text="Mat:"/>
+        <control progid="DecalControls.Choice" name="cmbMaterial" left="425" top="55" width="100" height="24" textcolor="16777215"   text="Melee Type">
+          <option text="None" data="1"/>
+          <option text="Steel" data="2"/>
+          <option text="Copper" data="3"/>
+          <option text="Mahoghany" data="4"/>
+          <option text="Iron" data="5"/>
+          <option text="Granite" data="6"/>
+          <option text="GreenGarnet" data="7"/>
+          <option text="Aquamarine" data="8"/>
+          <option text="BlackGarnet" data="9"/>
+          <option text="BlackOpal" data="10"/>
+          <option text="Emerald" data="11"/>
+          <option text="FireOpal" data="12"/>
+          <option text="ImperialTopaz" data="13"/>
+          <option text="Jet" data="14"/>
+          <option text="RedGarnet" data="15"/>
+          <option text="Ivory" data="16"/>
+          <option text="Leather" data="17"/>
+          <option text="Agate" data="18"/>
+          <option text="Alabaster" data="19"/>
+          <option text="Amber" data="20"/>
+          <option text="Amethyst" data="21"/>
+          <option text="Azurite" data="22"/>
+          <option text="Bloodstone" data="23"/>
+          <option text="Brass" data="24"/>
+          <option text="Bronze" data="25"/>
+          <option text="Carmelian" data="26"/>
+          <option text="Ceramic" data="27"/>
+          <option text="Citrine" data="28"/>
+          <option text="Diamond" data="29"/>
+          <option text="DilloHide" data="30"/>
+          <option text="Ebony" data="31"/>
+          <option text="Gold" data="32"/>
+          <option text="GreenJade" data="33"/>
+          <option text="GromneyHide" data="34"/>
+          <option text="Hematite" data="35"/>
+          <option text="LapusLazuli" data="36"/>
+          <option text="LavenderJade" data="37"/>
+          <option text="Linen" data="38"/>
+          <option text="Malachite" data="39"/>
+          <option text="Marble" data="40"/>
+          <option text="Moonstone" data="41"/>
+          <option text="Oak" data="42"/>
+          <option text="Obsidian" data="43"/>
+          <option text="Onyx" data="44"/>
+          <option text="Opal" data="45"/>
+          <option text="Peridot" data="46"/>
+          <option text="Pine" data="47"/>
+          <option text="Porcelain" data="48"/>
+          <option text="Pyreal" data="49"/>
+          <option text="RedJade" data="50"/>
+          <option text="ReedsharkHide" data="51"/>
+          <option text="RoseQuartz" data="52"/>
+          <option text="Ruby" data="53"/>
+          <option text="Sandstone" data="54"/>
+          <option text="Sapphire" data="54"/>
+          <option text="Satin" data="56"/>
+          <option text="Serpentine" data="57"/>
+          <option text="Silk" data="58"/>
+         <option text="Silver" data="59"/>
+          <option text="SmokeyQuartz" data="60"/>
+          <option text="Stone" data="61"/>
+          <option text="SunStone" data="62"/>
+          <option text="Teak" data="63"/>
+          <option text="TigerEye" data="64"/>
+          <option text="Tourmaline" data="65"/>
+          <option text="Turquoise" data="66"/>
+          <option text="Velvet" data="67"/>
+          <option text="WhiteJade" data="68"/>
+          <option text="WhiteQuartz" data="69"/>
+          <option text="WhiteSapphire" data="70"/>
+          <option text="Wood" data="71"/>
+          <option text="Wool" data="72"/>
+          <option text="YellowGarnet" data="73"/>
+          <option text="YellowTopaz" data="74"/>
+          <option text="Zircon" data="75"/>
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblDamage" left ="5" top ="80" height="24" width ="22" textcolor ="16777215" text="Dam:"/>
+        <control progid="DecalControls.Choice" name="cmbDamageType" left="30" top="80" width="120" height="24" textcolor="16777215" >
+          <option text="None" data="1"/>
+          <option text="Slashing" data="2"/>
+          <option text="Piercing" data="3"/>
+          <option text="Slash_Pierce" data="4"/>
+          <option text="Bludgeon" data="5"/>
+          <option text="Frost" data="6"/>
+          <option text="Fire" data="7"/>
+          <option text="Acid" data="8"/>
+          <option text="Lightning" data="9"/>
+
+        </control>
+        
+        <control progid ="DecalControls.StaticText" name="lblArmorWield" left ="160" top ="80" height="24" width ="22" textcolor ="16777215" text="Lev:"/>
+        <control progid="DecalControls.Choice" name="cmbArmorLevel" left="185" top="80" width="200" height="24" textcolor="16777215" >
+          <option text="None" data="1"/>
+          <option text="No Wield" data="2"/>
+          <option text="60" data="3"/>
+          <option text="90" data="4"/>
+          <option text="100" data="5"/>
+          <option text="150" data="6"/>
+          <option text="180" data="7"/>
+          <option text="225" data="8"/>
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblWork" left ="400" top ="80" height="24" width ="22" textcolor ="16777215" text="Work:"/>
+        <control progid="DecalControls.Choice" name="cmbSalvWork" left="425" top="80" width="100" height="24" textcolor="16777215">
+          <option text="None" data="1"/>
+          <option text="1-6" data="2"/>
+          <option text="7-8" data="3"/>
+          <option text="9" data="4"/>
+          <option text="10" data="5"/>
+        </control>
+
+        <control progid ="DecalControls.StaticText" name="lblWield" left ="5" top ="110" height="24" width ="22" textcolor ="16777215" text="Lev:"/>
+        <control progid="DecalControls.Choice" name="cmbLevel" left="30" top="110" width="120" height="24" textcolor="16777215"   text="Damage Type">
+          <option text="None" data="1"/>
+          <option text="No Wield" data="2"/>
+          <option text="250" data="3"/>
+          <option text="270" data="4"/>
+          <option text="290" data="5"/>
+          <option text="300" data="6"/>
+          <option text="310" data="7"/>
+          <option text="315" data="8"/>
+          <option text="325" data="9"/>
+          <option text="330" data="10"/>
+          <option text="335" data="11"/>
+          <option text="350" data="12"/>
+          <option text="355" data="13"/>
+          <option text="360" data="14"/>
+          <option text="370" data="15"/>
+          <option text="375" data="16"/>
+          <option text="400" data="17"/>
+          <option text="420" data="18"/>
+
+        </control>
+
+
+        <control progid ="DecalControls.StaticText" name="lblCovers" left ="160" top ="110" height="24" width ="20" textcolor ="16777215" text="Cov:"/>
+        <control progid="DecalControls.Choice" name="cmbCoverage" left="185" top="110" width="220" height="24" textcolor="16777215">
+          <option text="None" data="1"/>
+          <option text="Upper_Leg" data="2"/>
+          <option text="Lower_Leg" data="3"/>
+          <option text="Chest" data="4"/>
+          <option text="Abdomen" data="5"/>
+          <option text="Upper_Arm" data="6"/>
+          <option text="Lower_Arm" data="7"/>
+          <option text="Head" data="8"/>
+          <option text="Hands" data="9"/>
+          <option text="Feet" data="10"/>
+          <option text="Upper_Lower_Legs" data="11"/>
+          <option text="Abdomen_Upper_Legs" data="12"/>
+          <option text="Abdomen_Upper_Lower_Legs" data="13"/>
+          <option text="Chest_Abdomen" data="14"/>
+          <option text="Chest_Upper_Arms" data="15"/>
+          <option text="Chest_Abdomen_Upper_Arm" data="16"/>
+          <option text="Chest_Upper_Lower_Arms" data="17"/>
+          <option text="Chest_Abdomen_Upper_Lower_Arms" data="18"/>
+          <option text="Underwear_Chest" data="19"/>
+          <option text="Underwear_Abdomen_Upper_Legs" data="20"/>
+          <option text="Underwear_Abdomen_Upper_Lower_Legs" data="21"/>
+          <option text="Underwear_Chest_UpperArms" data="22"/>
+          <option text="Underwear_Chest_Upper_LowerArms" data="23"/>
+        </control>
+
+        <control progid="DecalControls.PushButton" name="btnLstInventory" left="415" top="110" width="100" height="24" textcolor="16777215" text="List Inventory"/>
+
+
+        <control progid ="DecalControls.StaticText" name="lblEmbue" left ="5" top ="140" height="24" width ="22" textcolor ="16777215" text="Emb:"/>
+        <control progid="DecalControls.Choice" name="cmbEmbue" left="30" top="140" width="120" height="24" textcolor="16777215"   text="Damage Type">
+          <option text="None" data="1"/>
+          <option text="Critical_Strike" data="2"/>
+          <option text="Crippling_Blow" data="3"/>
+          <option text="Armor" data="4"/>
+          <option text="Slashing" data="5"/>
+          <option text="Piercing" data="6"/>
+          <option text="Bludgeon" data="7"/>
+          <option text="Acid" data="8"/>
+          <option text="Frost" data="9"/>
+          <option text="Lightning" data="10"/>
+          <option text="Fire" data="11"/>
+          <option text="MagicD_PlusOne" data="12"/>
+
+        </control>
+
+        <control progid="DecalControls.PushButton" name="btnClrInventory" left="415" top="140" width="100" height="24" textcolor="16777215" text="Clear List"/>
+
+
+        <control progid="DecalControls.List" name="lstInventory" left="5" top="170" width="450" height="200">
+
+          <column progid="DecalControls.IconColumn" name="colIcon"  fixedwidth="20"/>
+          <column progid="DecalControls.TextColumn" name="colObjName"  fixedwidth="200"/>
+          <column progid="DecalControls.TextColumn" name="colToonName"  fixedwidth="200"/>
+          <column progid="DecalControls.TextColumn" name="colGUID" />
+
+
+
+        </control>
+      </control>
+    </page>
+
+
+ <!--   <page label="Attributes and Skills">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.PushButton" name="btnLstToonStats" left="10" top="5" width="120" height="24" textcolor="16777215" text="Get Stats for Toon"/>
+
+
+        <control progid="DecalControls.List" name="LstToonStats" left="5" top="30" width="300" height="380">
+
+          <column progid="DecalControls.TextColumn" name="colA"  fixedwidth="300"/>
+          <column progid="DecalControls.TextColumn" name="colB"  fixedwidth="30"/>
+          <column progid="DecalControls.TextColumn" name="colC"  fixedwidth="30"/>
+        </control>
+        <control progid="DecalControls.StaticText" name="Attributes and Skills" left="5" top="385" width="160" height="18" text="StaticText" />
+        <control progid="DecalControls.CheckBox" name="Attr_SkillsCheckBox" left="170" top="385" width="150" height="20" text="Refill" checked="true" />
+      </control>
+    </page>  -->
+
+    <page label="About">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.StaticText" name="AboutText1" left="20" top="20" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="Mishna will be a multi-functional plugin."/>
+        <control progid="DecalControls.StaticText" name="AboutText2" left="25" top="40" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="However currently it is an auto-inventory program."/>
+        <control progid="DecalControls.StaticText" name="Editionnumber" left="20" top="70" width="400" height="40"  justify="Left" fontsize="18" fontstyle="" text="Version 1006"/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="20" top="100" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="This plugin owes its existence to the source code made available"/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="120" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="by Virindi, Magnus, and multiple others."/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="140" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="The personal help from Flipo and the advice on the decal dev forums was invaluable.  Thank you all."/>
+          <control progid="DecalControls.StaticText" name="UseAtOwnRisk" left="20" top="180" width="400" height="40" textcolor="192" justify="Center" fontsize="20" fontstyle=" bold" text="USE AT YOUR OWN RISK!"/>
+
+      </control>
+    </page>
+  </control>
+</view>
+
+
+

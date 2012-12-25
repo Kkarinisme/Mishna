@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BE3B8B0A-A34B-49F7-9CEE-D5DFF1650B72}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Mishna</RootNamespace>
+    <AssemblyName>Mishna</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;VVS_REFERENCED;DECAL_INTEROP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;VVS_REFERENCED;DECAL_INTEROP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Decal.Adapter">
+      <HintPath>..\..\..\..\Decal\Decal.Adapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Decal.FileService">
+      <HintPath>..\..\..\..\Decal\Decal.FileService.dll</HintPath>
+    </Reference>
+    <Reference Include="Decal.Interop.Core, Version=2.9.6.5, Culture=neutral, PublicKeyToken=481f17d392f1fb65, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Decal\.NET 2.0 PIA\Decal.Interop.Core.DLL</HintPath>
+    </Reference>
+    <Reference Include="Decal.Interop.Filters, Version=2.9.6.7, Culture=neutral, PublicKeyToken=481f17d392f1fb65, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Decal\.NET 2.0 PIA\Decal.Interop.Filters.DLL</HintPath>
+    </Reference>
+    <Reference Include="Decal.Interop.Inject, Version=2.9.6.5, Culture=neutral, PublicKeyToken=481f17d392f1fb65, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\Windows\assembly\GAC_MSIL\Decal.Interop.Inject\2.9.6.7__481f17d392f1fb65\Decal.Interop.Inject.dll</HintPath>
+    </Reference>
+    <Reference Include="Decal.Interop.Net, Version=2.9.6.5, Culture=neutral, PublicKeyToken=481f17d392f1fb65, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Decal\.NET 2.0 PIA\Decal.Interop.Net.DLL</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="VirindiHUDs">
+      <HintPath>..\..\..\..\VirindiPlugins\VirindiHUDs\VirindiHUDs.dll</HintPath>
+    </Reference>
+    <Reference Include="VirindiViewService">
+      <HintPath>..\..\..\..\VirindiPlugins\VirindiViewService\VirindiViewService.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Quickslotshud.cs" />
+    <Compile Include="Quickslotshud.Designer.cs">
+      <DependentUpon>Quickslotshud.cs</DependentUpon>
+    </Compile>
+    <Compile Include="quickSlots.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="myOwnHuds.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Mishna_Definistions.cs" />
+    <Compile Include="toonStats.cs" />
+    <Compile Include="Views\mainView.cs" />
+    <Compile Include="PluginCore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="VirindiViews\ViewSystemSelector.cs" />
+    <Compile Include="VirindiViews\Wrapper.cs" />
+    <Compile Include="VirindiViews\Wrapper_Decal.cs" />
+    <Compile Include="VirindiViews\Wrapper_MyHuds.cs" />
+    <Compile Include="VirindiViews\Wrapper_WireupHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Quickslotshud.resx">
+      <DependentUpon>Quickslotshud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\mainView.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Decal">
+      <Guid>{FF7F5F6D-34E0-4B6F-B3BB-8141DE2EF732}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="DecalNet">
+      <Guid>{572B87C4-93BD-46B3-A291-CD58181D25DC}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExamplesOfSerializing.txt" />
+    <Content Include="Holdingpreviousqueries.txt" />
+    <Content Include="quickiesView.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\quickSlots.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SampleListMagnus.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

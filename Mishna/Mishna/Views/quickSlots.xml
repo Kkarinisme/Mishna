@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<quickies  icon="8100" title="Quickies"  width="20" height="800" >
+  <control progid="DecalControls.Notebook" name="nbQuickies">
+    <page label="">
+      <control progid="DecalControls.FixedLayout" clipped="">
+        <control progid="DecalControls.List" name="lstQuickies" left="5" top="170" width="450" height="200">
+          <column progid="DecalControls.IconColumn" name="colIcon"  fixedwidth="20"/>
+          <column progid="DecalControls.TextColumn" name="colGUID" />
+        </control>
+      </control>
+    </page>
+  </control>
+</quickies>
+  
