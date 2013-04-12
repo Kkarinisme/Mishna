@@ -13,10 +13,11 @@
         <control progid="DecalControls.Checkbox" name="chkInventoryWaiting" left="270" top="160" width="200" height="24" textcolor="16777215" text="List inventory waiting to be id'd"/>
         <control progid="DecalControls.PushButton" name="btnGetBurden" left="16" top="140" width="200" height="24" textcolor="16777215" text="Update burdens of Stacked Items"/>
         <control progid="DecalControls.PushButton" name="btnGetToonStats" left="16" top="190" width="200" height="24" textcolor="16777215" text="Get Toon Stats"/>
-        <control progid="DecalControls.Checkbox" name="chkStats" left="270" top="190" width="200" height="24" textcolor="16777215" text="Renew Stats on Startup"/>
-
-        <!--   <control progid="DecalControls.PushButton" name="btnGetToonArmor" left="16" top="190" width="200" height="24" textcolor="16777215" text="Find Toon Armor"/> -->
-    <!--  <control progid="DecalControls.Checkbox" name="chkQuickSlots" left="270" top="190" width="200" height="24" textcolor="16777215" text="Use QuickSlots"/> -->
+        <control progid="DecalControls.Checkbox" name="chkToonStats" left="270" top="190" width="200" height="24" textcolor="16777215" text="Renew Stats on Startup"/>
+        <!--<control progid="DecalControls.PushButton" name="btnGetToonArmor" left="16" top="240" width="200" height="24" textcolor="16777215" text="Get Toon Armor"/>
+        <control progid="DecalControls.Checkbox" name="chkToonArmor" left="270" top="220" width="200" height="24" textcolor="16777215" text="Get Toon Armor on Startup"/>-->
+        <control progid="DecalControls.Checkbox" name="chkQuickSlotsv" left="270" top="240" width="200" height="24" textcolor="16777215" text="Use Vertical Quickslots"/>
+        <control progid="DecalControls.Checkbox" name="chkQuickSlotsh" left="270" top="260" width="200" height="24" textcolor="16777215" text="Use Horizontal Quickslots"/>
       </control>
     </page>
     <page label="Inventory">
@@ -354,17 +355,16 @@
     <page label="About">
       <control progid="DecalControls.FixedLayout" clipped="">
         <control progid="DecalControls.StaticText" name="AboutText1" left="20" top="20" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="Mishna will be a multi-functional plugin."/>
-        <control progid="DecalControls.StaticText" name="AboutText2" left="25" top="40" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="However currently it is an auto-inventory program."/>
-        <control progid="DecalControls.StaticText" name="Editionnumber" left="20" top="70" width="400" height="40"  justify="Left" fontsize="18" fontstyle="" text="Version 1006"/>
-        <control progid="DecalControls.StaticText" name="Acknowledgements" left="20" top="100" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="This plugin owes its existence to the source code made available"/>
-        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="120" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="by Virindi, Magnus, and multiple others."/>
-        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="140" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="The personal help from Flipo and the advice on the decal dev forums was invaluable.  Thank you all."/>
-          <control progid="DecalControls.StaticText" name="UseAtOwnRisk" left="20" top="180" width="400" height="40" textcolor="192" justify="Center" fontsize="20" fontstyle=" bold" text="USE AT YOUR OWN RISK!"/>
+        <control progid="DecalControls.StaticText" name="AboutText2" left="25" top="40" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="Currently it is both an auto-inventory program and contains quickslots."/>
+        <control progid="DecalControls.StaticText" name="Editionnumber" left="20" top="80" width="400" height="40"  justify="Left" fontsize="18" fontstyle="" text="Version 1008"/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="20" top="120" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="This plugin owes its existence to the source code made available"/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="140" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="by Virindi, Magnus, and multiple others."/>
+        <control progid="DecalControls.StaticText" name="Acknowledgements" left="25" top="160" width="400" height="40" justify="Left" fontsize="18" fontstyle="" text="The personal help from Flipo and the advice on the decal dev forums was invaluable.  Thank you all."/>
+          <control progid="DecalControls.StaticText" name="UseAtOwnRisk" left="20" top="200" width="400" height="40" textcolor="192" justify="Center" fontsize="20" fontstyle=" bold" text="USE AT YOUR OWN RISK!"/>
 
       </control>
     </page>
   </control>
 </view>
-
 
 

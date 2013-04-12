@@ -32,29 +32,40 @@ namespace Mishna
         private string genInventoryFilename;
         private string holdingInventoryFilename;
         private string inventorySelect;
-        private string genSettingsFilename;
-        private string toonQuickSlotsFilename;
+        // private string toonQuickSlotsFilename;
+        private string genSettingsFilename = null;
+        // private string toonSettingsFilename = null;
+        private string quickSlotsvFilename = null;
+        private string quickSlotshFilename = null;
 
-        private static bool inventoryEnabled;
-        private static bool inventoryBurdenEnabled;
-        private static bool inventoryCompleteEnabled;
-        private static bool inventoryWaitingEnabled = false;
-        private static bool statsEnabled;
-        private static bool quickSlotsEnabled;
-        private static bool identRecd = false;
-        private static bool mgoon = true;
-        private static bool getBurden = false;
+
+        private static bool binventoryEnabled;
+        private static bool binventoryBurdenEnabled;
+        private static bool binventoryCompleteEnabled;
+        private static bool binventoryWaitingEnabled = false;
+        private static bool bquickSlotsvEnabled;
+        private static bool bquickSlotshEnabled;
+        private static bool bidentRecd = false;
+        private static bool bmgoon = true;
+        private static bool bgetBurden = false;
+        private static bool btoonArmorEnabled;
+        private static bool btoonStatsEnabled;
 
         private string toonName;
         private string world;
         private string pathToToon;
 
-        private XmlDocument inventory = new XmlDocument();
-        private XmlDocument armor = new XmlDocument();
-        private XmlDocument doc = new XmlDocument();
-        private XDocument xdoc = new XDocument();
-        private XDocument newDoc = new XDocument();
-        private XDocument iconDoc = new XDocument();
+        //private XmlDocument inventory = new XmlDocument();
+        //private XmlDocument armor = new XmlDocument();
+        //private XmlDocument doc = new XmlDocument();
+        private XDocument xdoc = null;
+        private XDocument newDoc = null;
+       // private XDocument iconDoc = null;
+        private XDocument xdocArmor = null;
+       // private XDocument xdocToonSettings = null;
+        private XDocument xdocGenSettings = null;
+        private XDocument xdocToonInventory = null;
+        private XDocument xdocGenInventory = null;
 
         private static XElement element = null;
         private static IEnumerable<XElement> childElements = null;
@@ -64,12 +75,20 @@ namespace Mishna
         private XmlDocument genInventory = new XmlDocument();
         private XDocument Xinventory = new XDocument();
 
+        private List<XElement> mGenSettingsList = new List<XElement>();
+      //  private List<XElement> mQuickSlotsvList = null;
+       // private List<XElement> mQuickSlotshList = null;
+
+
         //used by both the inventory and armor programs to hold current object being processed
         private WorldObject currentobj;
+        private WorldObject currentarmorobj;
  
         private string fn;
         private List<string> moldObjsID = new List<string>();
         private List<WorldObject> mWaitingForID;
+        private List<WorldObject> mWaitingForArmorID;
+
         private List<WorldObject> mIdNotNeeded = new List<WorldObject>();
         private List<long> mwaitingforChangedEvent = new List<long>();
         private List<string> mCurrID = new List<string>();
@@ -107,8 +126,6 @@ namespace Mishna
         private static string objMinDam = null;
 
         // private static MyClasses.MetaViewWrappers.IList lstQuickies = null;
-        private static VirindiViewService.HudView  quickiesHud; 
-        private static VirindiViewService.Controls.HudFixedLayout quickiesHud_Head;
 
 
        private static string objClassName = "None";
@@ -131,6 +148,9 @@ namespace Mishna
         string objVar;
         string objBurden;
         string objStack;
+
+
+
 
 
 

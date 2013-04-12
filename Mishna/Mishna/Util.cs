@@ -61,6 +61,31 @@ namespace Mishna
             }
         }
 
+        private void SaveSettings()
+        {
+            try
+            {
+                xdocGenSettings = new XDocument(new XElement("Settings"));
+                xdocGenSettings.Element("Settings").Add(new XElement("Setting",
+                         new XElement("QuickSlotsvEnabled", bquickSlotsvEnabled),
+                         new XElement("QuickSlotshEnabled", bquickSlotshEnabled),
+                         new XElement("VpointX", vpt.X),
+                         new XElement("VpointY", vpt.Y),
+                         new XElement("HpointX", hpt.X),
+                         new XElement("HpointY", hpt.Y),
+                         new XElement("InventoryEnabled", binventoryEnabled),
+                         new XElement("InventoryBurdenEnabled", binventoryBurdenEnabled),
+                         new XElement("InventoryCompleteEnabled", binventoryCompleteEnabled),
+                         new XElement("ToonStatsEnabled", btoonStatsEnabled)));
+                        // new XElement("ToonArmorEnabled", btoonArmorEnabled),
+                 xdocGenSettings.Save(genSettingsFilename);
+
+            }
+             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+
+        }
+		
+
         // need a path to the world of the current toon
         public void setPathToWorld()
         {
@@ -88,22 +113,25 @@ namespace Mishna
         {
             try
             {
-                xdoc = new XDocument(new XElement("Objs"));
+              //  xdoc = new XDocument(new XElement("Objs"));
                 //Need a list to hold the inventory
                mWaitingForIDTimer = new WindowsTimer();
                 mWaitingForID = new List<WorldObject>();
                 mCurrID = new List<string>();
-
-
-
-                if (!File.Exists(genInventoryFilename))
+                if (xdocGenInventory == null)
                 {
-                    XDocument tempDoc = new XDocument(new XElement("Objs"));
-                    tempDoc.Save(genInventoryFilename);
-                    tempDoc = null;
+                    if (!File.Exists(genInventoryFilename))
+                    {
+                        xdocGenInventory = new XDocument(new XElement("Objs"));
+
+                    }
+                    else
+                    { xdocGenInventory = XDocument.Load(genInventoryFilename); }
                 }
 
 
+                // if no toon previously inventoried in this server need to begin a general inventory file (genInventoryFilename)
+ 
                 foreach (Decal.Adapter.Wrappers.WorldObject obj in Core.WorldFilter.GetInventory())
                 {
                     try
@@ -158,7 +186,7 @@ namespace Mishna
 
                     if (mWaitingForID.Count > 0)
                     {
-                        if (inventoryWaitingEnabled)
+                        if (binventoryWaitingEnabled)
                         {
                             for (int i = 0; i < n; i++)
                             {
@@ -177,15 +205,16 @@ namespace Mishna
                             try
                             {
 
-                                xdoc.Save(inventoryFilename);
-                                xdoc = null;
+
+                                //xdoc.Save(inventoryFilename);
+                                //xdoc = null;
                                 removeExcessObjsfromFile();
+
 
                                 removeToonfromFile();
 
-                                xdoc = XDocument.Load(genInventoryFilename);
-                                xdoc.Root.Add(XDocument.Load(inventoryFilename).Root.Elements());
-                                xdoc.Save(genInventoryFilename);
+                                xdocGenInventory.Root.Add(XDocument.Load(inventoryFilename).Root.Elements());
+                                xdocGenInventory.Save(genInventoryFilename);
                                 Mishna.PluginCore.Util.WriteToChat("General Inventory file has been saved. ");
                             }
                             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
@@ -236,17 +265,36 @@ namespace Mishna
         {
             try
             {
+
+
                 mWaitingForIDTimer.Stop();
 
-                if (identRecd)
+
+
+                for (int n = 0; n < mWaitingForID.Count; n++)
                 {
-                    
-                    identRecd = false;
-                    ProcessDataInventory();
-                    mIsFinished();
+ 
+                    if (mWaitingForID[n].HasIdData)
+                    {
+                      //  bidentRecd = false;
+                        ProcessDataInventory();
+                        mIsFinished();
+                    }
+                    else
+                    { mDoWait(); }
                 }
-                else
-                { mDoWait(); }
+
+
+
+                //if (bidentRecd)
+                //{
+
+                //    bidentRecd = false;
+                //    ProcessDataInventory();
+                //    mIsFinished();
+                //}
+                //else
+                //{ mDoWait(); }
 
 
 
@@ -283,7 +331,7 @@ namespace Mishna
                         objName = currentobj.Name;
                         objID = currentobj.Id;
         
-                        goGetProtocol(currentobj);
+ //                       goGetProtocol(currentobj);
              
                         objIcon = currentobj.Icon;
                         Type t = objIcon.GetType();
@@ -348,7 +396,7 @@ namespace Mishna
                         long objUnknown8000000 = currentobj.Values(LongValueKey.Unknown8000000);
                         long objUsageMask = currentobj.Values(LongValueKey.UsageMask);
                                            
-                        xdoc.Element("Objs").Add(new XElement("Obj",
+                        xdocToonInventory.Element("Objs").Add(new XElement("Obj",
                         new XElement("ObjName", objName),
                         new XElement("ObjID", objID),
                         new XElement("ToonName", toonName),
@@ -515,7 +563,7 @@ namespace Mishna
                 string spellName = spell.Name;
                 if (spellName.Contains("Major") || spellName.Contains("Epic") ||
                   spellName.Contains("Incantation")  || spellName.Contains("Surge")
-                    || spellName.Contains("Cloaked in Skill"))
+                    || spellName.Contains("Cloaked in Skill") || spellName.Contains("Legendary"))
                 {
                     oXmlSpells = oXmlSpells + ", " + spellName;
 
@@ -525,118 +573,7 @@ namespace Mishna
             return oXmlSpells;
         }  //endof gogetspells
 
-          public void goGetProtocol(WorldObject obj)
-        {
-                ServerDispatch_Handler();
-        }
-
  
-
-          private void ServerDispatch_Handler(object sender, Decal.Adapter.NetworkMessageEventArgs e)
-
-
-              {
-                Decal.Adapter.Message pMsg = e.Message;
-                if (pMsg.Type == 0xF7B0 && pMsg.Value<int>("event") == 0x00C9 && pMsg.Value<int>("object") == objID)
-                {
-                    tempVal1 = idMsg.Value<int>("health");
-                    tempVal2 = idMsg.Value<int>("healthMax");
-                    tempVal3 = idMsg.Value<int>("stamina");
-                    tempVal4 = idMsg.Value<int>("staminaMax");
-                    tempVal5 = idMsg.Value<int>("mana");
-                    tempVal6 = idMsg.Value<int>("manaMax");
-                }
-        }
-
-
-
-
-            string myProtocol = obj.Values(
-                If pMsg.Member("flags") And &H8& Then
-  For i = 0 To pMsg.Member("stringCount") - 1
-    If pMsg.Member("strings").Member(i).Member("key") = &H10& Then
-      Call wtcw("Desc is " & pMsg.Member("strings").Member(i).Member("string") )
-  Next i
-End If
-            // Decal.Adapter.Message has the protocol
-            // The following code was written in 2004  Can't get decalnet figured out yet
-          //  int count = (int)Message.get_Member("stringCount");
-//DecalNet.IMessageIterator mIterator = (DecalNet.IMessageIterator)Message.get_Member("strings");
-//for(int i=0; i<count; i++)
-//{
-//   DecalNet.IMessageIterator mInfo = (DecalNet.IMessageIterator)mIterator.NextObjectIndex;
-//   switch((uint)mInfo.get_NextInt("key"))
-//   {
-//      case 0x07: //inscription
-//         break;
-//      case 0x08: //inscriber
-//         break;
-//      case 0x09: //Requirement ??wielder name
-//         break;
-//      case 0x0E: //Use instructions
-//         break;
-//      case 0x0F: //Simple Description
-//         break;
-//      case 0x10: //Description
-//         sDescription = mInfo.get_NextString("string");
-//         break;
-//      case 0x13: //req race
-//         break;
-//      case 0x19: //Creator
-//         break;
-//      case 0x26: //portal destination
-//         break;
-//      case 0x27: //Last tinkerer
-//         break;
-//   }
-//}
-
-           
-
-////Example code from Alinco
-//            [BaseEvent("ServerDispatch")]
-//private void PluginCore_ServerDispatch(object sender, NetworkMessageEventArgs e)
-//{
-//    try
-//    {
-//        // Game Event
-//        if (e.Message.Type == 0xF7B0)
-//        {
-//            int eventId;
-//            try { eventId = e.Message.Value<int>("event"); }
-//            catch (ArgumentOutOfRangeException) { return; }
-
-//            // Allegiance Info
-//            if (eventId == 0x0020)
-//            {
-//                MessageStruct records = e.Message.Struct("records");
-//                if (records.Count == 0)
-//                {
-//                    // Not in a monarchy
-//                    MonarchId = 0;
-//                    MonarchName = "";
-//                }
-//                else
-//                {
-//                    // Monarch info is always the first record, whether this character
-//                    // is monarch, direct vassal to the monarch, or just a peon.
-//                    MessageStruct monarch = records.Struct(0);
-//                    MonarchId = monarch.Value<int>("character");
-//                    MonarchName = monarch.Value<string>("name");
-//                }
-//            }
-//        }
-//    }
-//    catch (Exception ex) { Util.HandleException(ex); }
-//}
-            
-//           // in 2004  DecalNet.IMessageIterator mIterator = (DecalNet.IMessageIterator)Message.get_Member("strings");
-//            Decal.Adapter.NetParser.MessageRootImpl myParser = (Decal.Adapter.NetParser.MessageRootImpl)Message;
-//            Message objProtoc = 
-//                Core.Decal.CreateObjRef();
-
-          
-        }
 
         
 
@@ -645,10 +582,10 @@ End If
             try
             {
                 List<string> holding = new List<string>();
-                xdoc = XDocument.Load(inventoryFilename);
-                IEnumerable<XElement> elements = xdoc.Element("Objs").Descendants("Obj");
+             //   xdoc = XDocument.Load(inventoryFilename);
+                IEnumerable<XElement> elements = xdocToonInventory.Element("Objs").Descendants("Obj");
 
-                int oldCount = (int)(xdoc.Element("Objs").Elements("Obj").Count());
+                int oldCount = (int)(xdocToonInventory.Element("Objs").Elements("Obj").Count());
                 foreach (string val in moldObjsID)
                 {
                     if (!mCurrID.Contains(val))
@@ -659,13 +596,13 @@ End If
                 }
 
 
-                var obj = from o in xdoc.Descendants("Obj") where holding.Contains(o.Element("ObjID").Value) select o;
+                var obj = from o in xdocToonInventory.Descendants("Obj") where holding.Contains(o.Element("ObjID").Value) select o;
                 obj.Remove();
-                int newCount = (int)(xdoc.Element("Objs").Elements("Obj").Count());
+                int newCount = (int)(xdocToonInventory.Element("Objs").Elements("Obj").Count());
                 int count = oldCount - newCount;
                 Mishna.PluginCore.Util.WriteToChat(count + " objects removed from inventory of " + toonName);
-                xdoc.Save(inventoryFilename);
-                xdoc = null;
+                xdocToonInventory.Save(inventoryFilename);
+                xdocToonInventory = null;
                 moldObjsID = null;
                 mWaitingForID = null;
                 mCurrID = null;
@@ -686,12 +623,8 @@ End If
             try
             {
 
-                xdoc = XDocument.Load(genInventoryFilename);
-
-                IEnumerable<XElement> elements = xdoc.Element("Objs").Descendants("Obj");
-                xdoc.Descendants("Obj").Where(x => x.Element("ToonName").Value == toonName).Remove();
-                xdoc.Save(genInventoryFilename);
-                  xdoc = null;
+                 IEnumerable<XElement> elements = xdocGenInventory.Element("Objs").Descendants("Obj");
+                xdocGenInventory.Descendants("Obj").Where(x => x.Element("ToonName").Value == toonName).Remove();
 
             }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }

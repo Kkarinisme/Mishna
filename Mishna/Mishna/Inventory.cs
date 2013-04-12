@@ -24,6 +24,17 @@ namespace Mishna
 {
     public partial class PluginCore : PluginBase
     {
+        void btnGetInventory_Click(object sender, MyClasses.MetaViewWrappers.MVControlEventArgs e)
+        {
+           
+                
+                Mishna.PluginCore.Util.WriteToChat("ToonInventoryButton was clicked");
+                m = 500;
+                xdocToonInventory = new XDocument(new XElement("Objs"));
+                doGetInventory();
+            
+        }
+    
        void btnUpdateInventory_Click(object sender, MyClasses.MetaViewWrappers.MVControlEventArgs e)
         {
             Mishna.PluginCore.Util.WriteToChat("The button to update inventory was clicked");
@@ -33,13 +44,14 @@ namespace Mishna
         void btnGetBurden_Click(object sender, MyClasses.MetaViewWrappers.MVControlEventArgs e)
        {
            Mishna.PluginCore.Util.WriteToChat("The button to update burden was clicked");
-           getBurden = true;
+           bgetBurden = true;
            doUpdateInventory();
        }
 
         private void doUpdateInventory()
         {
             try{
+ 
                 //Need a timer for processing inventory
                 mWaitingForIDTimer = new WindowsTimer();
                 //Need a list to hold the inventory
@@ -53,13 +65,14 @@ namespace Mishna
                 {
                     try
                     {
-                        if (getBurden)
-                        {
-                            xdoc = XDocument.Load(inventoryFilename);
-                            IEnumerable<XElement> myelements = xdoc.Element("Objs").Descendants("Obj");
-                            int oldCount = (int)(xdoc.Element("Objs").Elements("Obj").Count());
+                        xdocToonInventory = XDocument.Load(inventoryFilename);
 
-                            var obj = from o in xdoc.Descendants("Obj")
+                        if (bgetBurden)
+                        {
+                            IEnumerable<XElement> myelements = xdocToonInventory.Element("Objs").Descendants("Obj");
+                            int oldCount = (int)(xdocToonInventory.Element("Objs").Elements("Obj").Count());
+
+                            var obj = from o in xdocToonInventory.Descendants("Obj")
                                       where o.Element("ObjName").Value.Contains("Stipend") ||
                                           o.Element("ObjName").Value.Contains("Crystal") || o.Element("ObjName").Value.Contains("Jewel")
                                           || o.Element("ObjName").Value.Contains("Pearl") || o.Element("ObjName").Value.Contains("Trade Note")
@@ -70,40 +83,32 @@ namespace Mishna
                                           || o.Element("ObjName").Value.Contains("Arrow")
                                       select o;
                             obj.Remove();
-                            int newCount = (int)(xdoc.Element("Objs").Elements("Obj").Count());
-                            xdoc.Save(inventoryFilename);
+                            int newCount = (int)(xdocToonInventory.Element("Objs").Elements("Obj").Count());
+                       //     xdoc.Save(inventoryFilename);
 
 
                             Mishna.PluginCore.Util.WriteToChat("Count before removal = " + oldCount + ".  Count after removal = " + newCount);
-                        }
-                        xdoc = XDocument.Load(inventoryFilename);
-                        IEnumerable<XElement> elements = xdoc.Element("Objs").Descendants("ObjID");
+                        } // end of bgetBurden
+                        IEnumerable<XElement> elements = xdocToonInventory.Element("Objs").Descendants("ObjID");
                         foreach (XElement element in elements)
                         {
                             //Create list of the ID's currently in the inventory
-                             { moldObjsID.Add(element.Value); }
+                             { moldObjsID.Add(element.Value);}
                         }
-                    }
-                    catch (Exception ex) { mgoon = false;  doGetInventory(); }
-
+                    } // end of try
+                    catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+                    bmgoon = true; 
 
                 }
                 else //if that toon not previously inventoried need to start an inventory file for them
                 {
-                    xdoc = new XDocument(new XElement("Objs"));
+                    xdocToonInventory = new XDocument(new XElement("Objs"));
+                    doGetInventory();
                 }
                 
-                // if no toon previously inventoried in this server need to begin a general inventory file (genInventoryFilename)
-                if (!File.Exists(genInventoryFilename))
-                {
-                    XDocument tempDoc = new XDocument(new XElement("Objs"));
-                    tempDoc.Save(genInventoryFilename);
-                    tempDoc = null;
-
-                }
-
+ 
                 // if left this subprogram because of exception in update need a way to avoid returning to this program
-                if (mgoon)
+                if (bmgoon)
                 {
                     mCurrID = new List<string>();
 
@@ -153,16 +158,7 @@ namespace Mishna
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
         }
         
-        void btnGetInventory_Click(object sender, MyClasses.MetaViewWrappers.MVControlEventArgs e)
-        {
-           
-                
-                Mishna.PluginCore.Util.WriteToChat("ToonInventoryButton was clicked");
-                m = 500;
 
-                doGetInventory();
-            
-        }
 
         // The following code has to do with selection of inventory to display in listbox
         // First it is necessary to choose the class of inventory; ie, weapons, armor etc. 
@@ -188,7 +184,6 @@ namespace Mishna
 
                 int tempeWieldAttrInt = cmbWieldAttrib.Selected;
                 findWieldAttrInt(tempeWieldAttrInt);
-           //     Mishna.PluginCore.Util.WriteToChat(tempeWieldAttrInt.ToString() + ", " + objWieldAttrInt.ToString());
             }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
         }
@@ -213,8 +208,7 @@ namespace Mishna
 
                 int tempeLevelInt = cmbLevel.Selected;
                 findLevelInt(tempeLevelInt);
-         //       Mishna.PluginCore.Util.WriteToChat(tempeLevelInt.ToString() + ", " + objLevelInt.ToString());
-            }
+           }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
         }
 
@@ -291,8 +285,9 @@ namespace Mishna
         void btnLstInventory_Click(object sender, MyClasses.MetaViewWrappers.MVControlEventArgs e)
         {
             try{
-            Mishna.PluginCore.Util.WriteToChat("At btnlstInventory");
-            XDocument tempDoc = new XDocument(new XElement("Objs"));
+                Mishna.PluginCore.Util.WriteToChat("I am at The list inventory section");
+
+           XDocument tempDoc = new XDocument(new XElement("Objs"));
             tempDoc.Save(inventorySelect);
             tempDoc = null;
             mySelect = null;
@@ -304,7 +299,7 @@ namespace Mishna
             }
             else
             { mySelect = null; }
-            xdoc = XDocument.Load(genInventoryFilename);
+        xdoc = XDocument.Load(genInventoryFilename);
             }//end of try //
 
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
@@ -429,13 +424,9 @@ namespace Mishna
               
                     else
                     {
-                      //  Mishna.PluginCore.Util.WriteToChat(objClassName + " , " + objArmorSet + " , no spells selected");
-                        if (objArmorSet == 0 && objArmorLevel == 1 && objCovers == 0)
+                       if (objArmorSet == 0 && objArmorLevel == 1 && objCovers == 0)
                         {
-                            //     Mishna.PluginCore.Util.WriteToChat(objClassName + ", " + objArmorSet + " ,  no spells");
-                            //     Mishna.PluginCore.Util.WriteToChat("I am in box for displaying armor without spells");
-
-                            newDoc = new XDocument(new XElement("Objs",
+                             newDoc = new XDocument(new XElement("Objs",
                             from p in xdoc.Element("Objs").Descendants("Obj")
                             where p.Element("ObjClass").Value.Contains(objClassName) 
                             select p));
@@ -443,8 +434,6 @@ namespace Mishna
 
                         else if (objArmorSet > 0 && objArmorLevel == 1 && objCovers == 0)
                         {
-                       //     Mishna.PluginCore.Util.WriteToChat(objClassName + ", " + objArmorSet + " ,  no spells");
-                       //     Mishna.PluginCore.Util.WriteToChat("I am in box for displaying armor without spells");
  
                             newDoc = new XDocument(new XElement("Objs",
                             from p in xdoc.Element("Objs").Descendants("Obj")
@@ -454,8 +443,6 @@ namespace Mishna
                        }
                         else if ((objArmorLevel > 1 || objArmorLevel < 1) && objArmorSet == 0 && objCovers == 0)
                         {
-                      //      Mishna.PluginCore.Util.WriteToChat(objClassName + ", " + objArmorLevel + " ,  no spells");
-                      //      Mishna.PluginCore.Util.WriteToChat("I am in box for displaying armor with levels without spells");
                             newDoc = new XDocument(new XElement("Objs",
                             from p in xdoc.Element("Objs").Descendants("Obj")
                             where p.Element("ObjClass").Value.Contains(objClassName) &&
@@ -1117,6 +1104,8 @@ namespace Mishna
                 catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
 
             newDoc = XDocument.Load(inventorySelect);
+
+
 
             IEnumerable<XElement> childElements = newDoc.Element("Objs").Descendants("Obj");
             foreach (XElement childElement in childElements)

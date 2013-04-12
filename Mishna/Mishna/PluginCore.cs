@@ -55,6 +55,7 @@ namespace Mishna
                 Globals.Init("Mishna", Host, Core);
                 Instance = this;
                 host = Host;
+                ViewInit();
              }
             catch (Exception ex) { Util.LogError(ex); }
         }
@@ -91,29 +92,28 @@ namespace Mishna
                 chkInventoryWaiting.Change -= new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryWaiting_Change);
                 chkInventoryBurden.Change -= new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryBurden_Change);
                 chkInventoryComplete.Change -= new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryComplete_Change);
-                chkStats.Change -= new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkStats_Change);
-                
-//            CoreManager.Current.RenderFrame -= new EventHandler<EventArgs>(Current_RenderFrame);
+                chkToonStats.Change -= new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkToonStats_Change);
 
-//            CoreManager.Current.CharacterFilter.Login -= new EventHandler<Decal.Adapter.Wrappers.LoginEventArgs>(CharacterFilter_Login);
+                CoreManager.Current.RenderFrame -= new EventHandler<EventArgs>(Current_RenderFrame);
 
-//            CoreManager.Current.WorldFilter.CreateObject -= new EventHandler<Decal.Adapter.Wrappers.CreateObjectEventArgs>(WorldFilter_CreateObject);
-//            CoreManager.Current.WorldFilter.ChangeObject -= new EventHandler<Decal.Adapter.Wrappers.ChangeObjectEventArgs>(WorldFilter_ChangeObject);
- //           CoreManager.Current.WorldFilter.ReleaseObject -= new EventHandler<Decal.Adapter.Wrappers.ReleaseObjectEventArgs>(WorldFilter_ReleaseObject);
+               // CoreManager.Current.CharacterFilter.Login -= new EventHandler<Decal.Adapter.Wrappers.LoginEventArgs>(CharacterFilter_Login);
 
-            if (quickiesHud != null)
-            {
-               quickiesHud.Dispose();
-               quickiesHud = null;
-            }
+                //CoreManager.Current.WorldFilter.CreateObject -= new EventHandler<Decal.Adapter.Wrappers.CreateObjectEventArgs>(WorldFilter_CreateObject);
+              //  CoreManager.Current.WorldFilter.ChangeObject -= new EventHandler<Decal.Adapter.Wrappers.ChangeObjectEventArgs>(WorldFilter_ChangeObject);
+               // CoreManager.Current.WorldFilter.ReleaseObject -= new EventHandler<Decal.Adapter.Wrappers.ReleaseObjectEventArgs>(WorldFilter_ReleaseObject);
 
-            if (quickiesHud_Head != null)
-            {
-               quickiesHud.Dispose();
-               quickiesHud_Head = null;
-            }
-    
+                if (quickiesvHud != null)
+                {
+                    doClearHud(quickiesvHud,xdocQuickSlotsv,quickSlotsvFilename);
+                }
 
+   
+                if (quickieshHud != null)
+                {
+                    doClearHud(quickieshHud,xdocQuickSlotsh, quickSlotshFilename);
+                }
+
+   
 
                 lstInventory.Selected -= new EventHandler<MVListSelectEventArgs>(lstInventory_Selected);
                 mWaitingForIDTimer.Tick -= new EventHandler(TimerEventProcessor);
@@ -166,115 +166,193 @@ namespace Mishna
                 chkDirExists();
                 //Need to set up names of files for inventory for individual toon and the file to contain all inventory
                 inventoryFilename = currDir + @"\" + toonName + "Inventory.xml";
-
                 genInventoryFilename = world + @"\inventory.xml";
-                genSettingsFilename = world + @"\settings.xml";
-                if(File.Exists(genSettingsFilename))
-                {   
-                   xdoc = XDocument.Load(genSettingsFilename);
-                   mcount = xdoc.Root.Descendants().Count();
-               }
-                if (!File.Exists(genSettingsFilename) || mcount < 4)
+                if (!File.Exists(genInventoryFilename))
                 {
-                    Mishna.PluginCore.Util.WriteToChat("I am at creating new file. mcount = " + mcount);
-
-                    inventoryEnabled = false;
-                    inventoryBurdenEnabled = false;
-                    inventoryCompleteEnabled = false;
-                    statsEnabled = false;
-                    quickSlotsEnabled = false;
-                    xdoc = new XDocument(new XElement("Settings"));
-
-                    xdoc.Element("Settings").Add(new XElement("Setting",
-                         new XElement("InventoryEnabled", inventoryEnabled),
-                         new XElement("InventoryBurdenEnabled", inventoryBurdenEnabled),
-                         new XElement("InventoryCompleteEnabled", inventoryCompleteEnabled),
-                         new XElement("StatsEnabled", statsEnabled),
-                         new XElement("QuickSlotsEnabled", quickSlotsEnabled)));
-                    xdoc.Save(genSettingsFilename);
+                    xdocGenInventory = new XDocument(new XElement("Objs"));
 
                 }
-                toonQuickSlotsFilename = currDir + @"\" + toonName + "QuickSlots.xml";
-                if (!File.Exists(toonQuickSlotsFilename))
-                {
-                    XDocument tempDoc = new XDocument(new XElement("QuickSlots"));
-                    tempDoc.Save(toonQuickSlotsFilename);
-                    tempDoc = null;
-                }
+                else
+                { xdocGenInventory = XDocument.Load(genInventoryFilename); }
+
+
+
+
                 holdingInventoryFilename = world + @"\holdingInventory.xml";
-                 inventorySelect = world + @"\inventorySelected.xml";
-                  //// doGetArmor();  Cannot go here if do get inventory() is turned on; two conflict
-                 getSettings();
-                 ViewInit();
-              //   if (quickSlotsEnabled)
-              //   {getQuickSlots(); }
-                 if (inventoryCompleteEnabled)
-                 {
-                     inventoryBurdenEnabled = false;
-                     inventoryEnabled = false;
-                     m = 500;
-                     doGetInventory();
-               
-                 }
-                 if (inventoryBurdenEnabled)
-                 {
-                     inventoryEnabled = false;
-                     getBurden = true;
-                     doUpdateInventory();
-                 }
-                 if (inventoryEnabled)
-                 { doUpdateInventory(); }
-                 if (statsEnabled)
-                 { getStats(); }
-           } //end of try
+                inventorySelect = world + @"\inventorySelected.xml";
+ 
+                genSettingsFilename = world + @"\settings.xml";
+                if(!File.Exists(genSettingsFilename))
+                {
+                     bquickSlotsvEnabled = false;
+                     bquickSlotshEnabled = false;
+                     vpt.X = 200;
+                     vpt.Y = 200;
+                     hpt.X = 240;
+                     hpt.Y = 300;
+                     binventoryEnabled = false;
+                     binventoryBurdenEnabled = false;
+                     binventoryCompleteEnabled = false;
+                     btoonStatsEnabled = false;
+                     SaveSettings();
+                }
+
+                  
+                   //// doGetArmor();  Cannot go here if do get inventory() is turned on; two conflict
+                    getSettings();
+
+
+                    if (bquickSlotsvEnabled)
+                    {
+                        quickSlotsvEnabled();
+                    }
+                    else if (!bquickSlotsvEnabled)
+                    {
+                        quickSlotsvNotEnabled();
+                    }
+
+
+
+
+                    if (bquickSlotshEnabled)
+                    {
+                        quickSlotshEnabled();
+                    }
+                    else if (!bquickSlotshEnabled)
+                    {
+                        quickSlotshNotEnabled();
+                    }
+
+
+
+ 
+
+                    if (binventoryCompleteEnabled)
+                    {
+                        binventoryBurdenEnabled = false;
+                        binventoryEnabled = false;
+                        m = 500;
+                        doGetInventory();
+                    }
+
+
+                    if (binventoryBurdenEnabled)
+                    {
+                        binventoryEnabled = false;
+                        bgetBurden = true;
+                        doUpdateInventory();
+                    }
+                    if (binventoryEnabled)
+                    { doUpdateInventory(); }
+                    if (btoonStatsEnabled)
+                    { getStats(); }
+                    if (btoonArmorEnabled)
+                    { doGetArmor(); }
+                }
+                                
            catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+
         }
 
         private void getSettings()
         {
             try
             {
-                if (System.IO.File.Exists(genSettingsFilename))
+                xdocGenSettings = XDocument.Load(genSettingsFilename);
+                IEnumerable<XElement> elements = xdocGenSettings.Element("Settings").Elements("Setting");
+                foreach (XElement el in elements.Descendants())
                 {
-                    xdoc = new XDocument();  //(genSettingsFilename);
-                   // List<XElement> settingsList = new List<XElement>();
-                    List<string> settingsList = new List<string>();
-                    xdoc = XDocument.Load(genSettingsFilename);
-
-
-                    foreach (XElement element in xdoc.Element("Settings").Element("Setting").Descendants())
-                    {
-                        string mval = element.Value;
-                        settingsList.Add(mval);
-
-                   }
- 
-                    inventoryEnabled = Convert.ToBoolean(settingsList[0]);
-                    inventoryBurdenEnabled = Convert.ToBoolean(settingsList[1]);
-                     inventoryCompleteEnabled = Convert.ToBoolean(settingsList[2]);
-                    statsEnabled = Convert.ToBoolean(settingsList[3]);
-                   // quickSlotsEnabled = Convert.ToBoolean(settingsList[5];
+                    mGenSettingsList.Add(el);
                 }
+                fillSettingsVariables();
+
             }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
 
         }
 
-        private void SaveSettings()
+        private void fillSettingsVariables()
         {
             try
             {
-                xdoc= new XDocument(new XElement("Settings"));
-                xdoc.Element("Settings").Add(new XElement("Setting",
-                         new XElement("InventoryEnabled", inventoryEnabled),
-                         new XElement("InventoryBurdenEnabled", inventoryBurdenEnabled),
-                         new XElement("InventoryCompleteEnabled", inventoryCompleteEnabled),
-                         new XElement("StatsEnabled", statsEnabled),
-                         new XElement("QuickSlotsEnabled", quickSlotsEnabled)));
-               xdoc.Save(genSettingsFilename);
+
+                foreach (XElement el in mGenSettingsList)
+                {
+                    if (el.Name == "QuickSlotsvEnabled") { bquickSlotsvEnabled = Convert.ToBoolean(el.Value); }
+                    if (el.Name == "QuickSlotshEnabled") { bquickSlotshEnabled = Convert.ToBoolean(el.Value); }
+                    if (el.Name == "VpointX") { vpt.X = Convert.ToInt32(el.Value); }
+                    if (el.Name == "VpointY") { vpt.Y = Convert.ToInt32(el.Value); }
+                    if (el.Name == "HpointX") { hpt.X = Convert.ToInt32(el.Value); }
+                    if (el.Name == "HpointY") { hpt.Y = Convert.ToInt32(el.Value); }
+                    if (el.Name == "InventoryEnabled") { binventoryEnabled = Convert.ToBoolean(el.Value); }
+                    if (el.Name == "InventoryBurdenEnabled") { binventoryBurdenEnabled = Convert.ToBoolean(el.Value); }
+                    if (el.Name == "InventoryCompleteEnabled") { binventoryCompleteEnabled = Convert.ToBoolean(el.Value); }
+                    if (el.Name == "ToonStatsEnabled") { btoonStatsEnabled = Convert.ToBoolean(el.Value); }
+                   // if (el.Name == "ToonArmorEnabled") { btoonArmorEnabled = Convert.ToBoolean(el.Value); }
+
+                }
+
+                chkQuickSlotsv.Checked = bquickSlotsvEnabled;
+                chkQuickSlotsh.Checked = bquickSlotshEnabled;
+                chkInventory.Checked = binventoryEnabled;
+                chkInventoryBurden.Checked = binventoryBurdenEnabled;
+                chkInventoryComplete.Checked = binventoryCompleteEnabled;
+                chkToonStats.Checked = btoonStatsEnabled;
+               // chkToonArmor.Checked = btoonArmorEnabled;
+ 
             }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+
         }
+
+        private void quickSlotsvEnabled()
+        {
+
+            quickSlotsvFilename = currDir + @"\QuickSlotsv.xml";
+            if (!File.Exists(quickSlotsvFilename)) { xdocQuickSlotsv = new XDocument(new XElement("Objs")); }
+            else { xdocQuickSlotsv = XDocument.Load(quickSlotsvFilename); }
+            quickiesvHud = new HudView();
+
+            createQuickies(quickiesvHud);
+
+        }
+
+        private void quickSlotsvNotEnabled()
+        {
+            if (quickiesvHud != null)
+            {
+                doClearHud(quickiesvHud, xdocQuickSlotsv, quickSlotsvFilename);
+                quickiesvHud.Dispose();
+                quickiesvHud = null;
+
+            }
+
+        }
+
+        private void quickSlotshEnabled()
+        {
+
+            quickSlotshFilename = currDir + @"\QuickSlotsh.xml";
+            if (!File.Exists(quickSlotshFilename)) { xdocQuickSlotsh = new XDocument(new XElement("Objs")); }
+            else { xdocQuickSlotsh = XDocument.Load(quickSlotshFilename); }
+            quickieshHud = new HudView();
+
+            createQuickies(quickieshHud);
+
+        }
+
+        private void quickSlotshNotEnabled()
+        {
+            if (quickieshHud != null)
+            {
+                doClearHud(quickieshHud, xdocQuickSlotsh, quickSlotshFilename);
+                quickieshHud.Dispose();
+                quickieshHud= null;
+
+            }
+
+        }
+
 
         [BaseEvent("ChangeObject", "WorldFilter")]
         void WorldFilter_ChangeObject(object sender, ChangeObjectEventArgs e)
@@ -283,7 +361,7 @@ namespace Mishna
             {
                 // This can get very spammy so I filted it to just print on ident received
                 if (e.Change == WorldChangeType.IdentReceived)
-                { identRecd = true; }
+                { bidentRecd = true; }
             }
             catch (Exception ex) { Util.LogError(ex); }
         }

@@ -54,7 +54,8 @@ namespace Mishna
         MyClasses.MetaViewWrappers.IButton btnGetToonStats;
         MyClasses.MetaViewWrappers.IButton btnLstInventory;
         MyClasses.MetaViewWrappers.IButton btnClrInventory;
-        MyClasses.MetaViewWrappers.IButton btnLstToonStats;
+ //       MyClasses.MetaViewWrappers.IButton btnLstToonStats;
+ //       MyClasses.MetaViewWrappers.IButton btnGetToonArmor;
 
         MyClasses.MetaViewWrappers.ICombo cmbSelectClass;
         MyClasses.MetaViewWrappers.ICombo cmbWieldAttrib;
@@ -74,8 +75,11 @@ namespace Mishna
         MyClasses.MetaViewWrappers.ICheckBox chkInventoryWaiting;
         MyClasses.MetaViewWrappers.ICheckBox chkInventoryBurden;
         MyClasses.MetaViewWrappers.ICheckBox chkInventoryComplete;
-        MyClasses.MetaViewWrappers.ICheckBox chkStats;
-       // MyClasses.MetaViewWrappers.ICheckBox chkQuickSlots;
+        MyClasses.MetaViewWrappers.ICheckBox chkToonStats;
+      //  MyClasses.MetaViewWrappers.ICheckBox chkToonArmor;
+        MyClasses.MetaViewWrappers.ICheckBox chkQuickSlotsv;
+        MyClasses.MetaViewWrappers.ICheckBox chkQuickSlotsh;
+
 
         MyClasses.MetaViewWrappers.IStaticText lblSetup;
         MyClasses.MetaViewWrappers.IStaticText lblInventoryExpl;
@@ -99,7 +103,7 @@ namespace Mishna
                 btnGetInventory = (MyClasses.MetaViewWrappers.IButton)View["btnGetInventory"];
                 btnUpdateInventory = (MyClasses.MetaViewWrappers.IButton)View["btnUpdateInventory"];
                 btnGetBurden = (MyClasses.MetaViewWrappers.IButton)View["btnGetBurden"];
-                //      btnGetToonArmor = (MyClasses.MetaViewWrappers.IButton)View["btnGetToonArmor"];
+       //          btnGetToonArmor = (MyClasses.MetaViewWrappers.IButton)View["btnGetToonArmor"];
                 btnGetToonStats = (MyClasses.MetaViewWrappers.IButton)View["btnGetToonStats"];
                 btnLstInventory = (MyClasses.MetaViewWrappers.IButton)View["btnLstInventory"];
                 btnClrInventory = (MyClasses.MetaViewWrappers.IButton)View["btnClrInventory"];
@@ -110,7 +114,7 @@ namespace Mishna
                 cmbWieldAttrib.Selected = 0;
                 cmbDamageType = (MyClasses.MetaViewWrappers.ICombo)View["cmbDamageType"];
                 cmbDamageType.Selected = 0;
-                cmbLevel = (MyClasses.MetaViewWrappers.ICombo)View["cmbLevel"];
+               cmbLevel = (MyClasses.MetaViewWrappers.ICombo)View["cmbLevel"];
                 cmbLevel.Selected = 0;
                 cmbArmorSet = (MyClasses.MetaViewWrappers.ICombo)View["cmbArmorSet"];
                 cmbArmorSet.Selected = 0;
@@ -126,19 +130,23 @@ namespace Mishna
                 cmbEmbue.Selected = 0;
 
                 chkInventory = (MyClasses.MetaViewWrappers.ICheckBox)View["chkInventory"];
-                chkInventory.Checked = inventoryEnabled;
+                chkInventory.Checked = binventoryEnabled;
                 chkInventoryBurden = (MyClasses.MetaViewWrappers.ICheckBox)View["chkInventoryBurden"];
-                chkInventoryBurden.Checked = inventoryBurdenEnabled;
+                chkInventoryBurden.Checked = binventoryBurdenEnabled;
                 chkInventoryComplete = (MyClasses.MetaViewWrappers.ICheckBox)View["chkInventoryComplete"];
-                chkInventoryComplete.Checked = inventoryCompleteEnabled;
+                chkInventoryComplete.Checked = binventoryCompleteEnabled;
                 chkInventoryWaiting = (MyClasses.MetaViewWrappers.ICheckBox)View["chkInventoryWaiting"];
-                chkInventoryWaiting.Checked = inventoryWaitingEnabled;
-                chkStats = (MyClasses.MetaViewWrappers.ICheckBox)View["chkStats"];
-                chkStats.Checked = statsEnabled;
-            //    chkQuickSlots = (MyClasses.MetaViewWrappers.ICheckBox)View["chkQuickSlots"];
-            //    chkQuickSlots.Checked = quickSlotsEnabled;
-
-                
+                chkInventoryWaiting.Checked = binventoryWaitingEnabled;
+                chkToonStats = (MyClasses.MetaViewWrappers.ICheckBox)View["chkToonStats"];
+                chkToonStats.Checked = btoonStatsEnabled;
+                //chkToonArmor = (MyClasses.MetaViewWrappers.ICheckBox)View["chkToonArmor"];
+                //chkToonArmor.Checked = btoonArmorEnabled;
+                chkQuickSlotsv = (MyClasses.MetaViewWrappers.ICheckBox)View["chkQuickSlotsv"];
+                chkQuickSlotsv.Checked = bquickSlotsvEnabled;
+                chkQuickSlotsh = (MyClasses.MetaViewWrappers.ICheckBox)View["chkQuickSlotsh"];
+                chkQuickSlotsh.Checked = bquickSlotshEnabled;
+  
+              
                 lstInventory = (MyClasses.MetaViewWrappers.IList)View["lstInventory"];
 
                 txbSelect = (MyClasses.MetaViewWrappers.ITextBox)View["txbSelect"];
@@ -154,7 +162,7 @@ namespace Mishna
                 btnGetInventory.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnGetInventory_Click);
                 btnUpdateInventory.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnUpdateInventory_Click);
                 btnGetBurden.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnGetBurden_Click);
-                //      btnGetToonArmor.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnGetToonArmor_Click);
+             //   btnGetToonArmor.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnGetToonArmor_Click);
                 btnGetToonStats.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnGetToonStats_Click);
                 btnLstInventory.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnLstInventory_Click);
                 btnClrInventory.Click += new EventHandler<MyClasses.MetaViewWrappers.MVControlEventArgs>(btnClrInventory_Click);
@@ -172,11 +180,13 @@ namespace Mishna
                 chkInventoryWaiting.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryWaiting_Change);
                 chkInventoryBurden.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryBurden_Change);
                 chkInventoryComplete.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkInventoryComplete_Change);
-                chkStats.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkStats_Change);
-           //     chkQuickSlots.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkQuickSlots_Change);
+                chkToonStats.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkToonStats_Change);
+              //  chkArmor.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkArmor_Change);
+                 chkQuickSlotsv.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkQuickSlotsv_Change);
+                 chkQuickSlotsh.Change += new EventHandler<MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs>(chkQuickSlotsh_Change);
  
                 lstInventory.Selected += new EventHandler<MVListSelectEventArgs>(lstInventory_Selected);
-                ServerDispatch.Handler += new EventHandler<ServerDispatch_Handler
+  //              ServerDispatch.Handler += new EventHandler<ServerDispatch_Handler
                
 
  //           CoreManager.Current.CharacterFilter.Login += new EventHandler<Decal.Adapter.Wrappers.LoginEventArgs>(CharacterFilter_Login);
@@ -184,7 +194,7 @@ namespace Mishna
  //           CoreManager.Current.WorldFilter.ChangeObject += new EventHandler<Decal.Adapter.Wrappers.ChangeObjectEventArgs>(WorldFilter_ChangeObject);
  //           CoreManager.Current.WorldFilter.ReleaseObject += new EventHandler<Decal.Adapter.Wrappers.ReleaseObjectEventArgs>(WorldFilter_ReleaseObject);
 
-            CoreManager.Current.RenderFrame += new EventHandler<EventArgs>(Current_RenderFrame);
+//              CoreManager.Current.RenderFrame += new EventHandler<EventArgs>(Current_RenderFrame);
 
                 
   
@@ -198,7 +208,7 @@ namespace Mishna
         {
             try
             {
-                inventoryEnabled = e.Checked;
+                binventoryEnabled = e.Checked;
 
                 SaveSettings();
             }
@@ -210,7 +220,7 @@ namespace Mishna
         {
             try
             {
-                inventoryBurdenEnabled = e.Checked;
+                binventoryBurdenEnabled = e.Checked;
 
                 SaveSettings();
             }
@@ -222,7 +232,7 @@ namespace Mishna
         {
             try
             {
-                inventoryCompleteEnabled = e.Checked;
+                binventoryCompleteEnabled = e.Checked;
 
                 SaveSettings();
             }
@@ -235,7 +245,7 @@ namespace Mishna
         {
             try
             {
-                inventoryWaitingEnabled = e.Checked;
+                binventoryWaitingEnabled = e.Checked;
 
              //   SaveSettings();
             }
@@ -244,11 +254,11 @@ namespace Mishna
         }
 
 
-        void chkStats_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
+        void chkToonStats_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
         {
             try
             {
-                statsEnabled = e.Checked;
+                btoonStatsEnabled = e.Checked;
 
                 SaveSettings();
             }
@@ -256,14 +266,56 @@ namespace Mishna
 
         }
 
-        void chkQuickSlots_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
+        void chkToonArmor_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
         {
             try
             {
-                quickSlotsEnabled = e.Checked;
+                btoonArmorEnabled = e.Checked;
 
                 SaveSettings();
-                getQuickSlots();
+            }
+            catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+
+        }
+
+        void chkQuickSlotsv_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
+        {
+            try
+            {
+                bquickSlotsvEnabled = e.Checked;
+
+                SaveSettings();
+                if (bquickSlotsvEnabled)
+                {
+                    quickSlotsvEnabled();
+                }
+                else if (!bquickSlotsvEnabled)
+                {
+                    quickSlotsvNotEnabled();
+                }
+
+            }
+            catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
+
+        }
+
+        void chkQuickSlotsh_Change(object sender, MyClasses.MetaViewWrappers.MVCheckBoxChangeEventArgs e)
+        {
+            try
+            {
+                bquickSlotshEnabled = e.Checked;
+
+                SaveSettings();
+
+                if (bquickSlotshEnabled)
+                {
+                    quickSlotshEnabled();
+                }
+                else if (!bquickSlotshEnabled)
+                {
+                    quickSlotshNotEnabled();
+                }
+
             }
             catch (Exception ex) { Mishna.PluginCore.Util.LogError(ex); }
 
@@ -272,6 +324,25 @@ namespace Mishna
 
         void ViewDestroy()
         {
+            SaveSettings();
+            doClearHud(quickiesvHud, xdocQuickSlotsv, quickSlotsvFilename);
+            doClearHud(quickieshHud, xdocQuickSlotsh, quickSlotshFilename);
+
+            if (quickiesvHud != null)
+            {
+                // Host.Render.RemoveHud(quickiesHud);
+                quickiesvHud.Dispose();
+                quickiesvHud = null;
+            }
+
+
+            if (quickieshHud != null)
+            {
+                // Host.Render.RemoveHud(quickiesHud);
+                quickieshHud.Dispose();
+                quickieshHud = null;
+            }
+
             btnGetInventory = null;
            // btnGetToonArmor = null;
             lstInventory = null;

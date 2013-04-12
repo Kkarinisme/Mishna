@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="armor.cs" />
     <Compile Include="Quickslotshud.cs" />
     <Compile Include="Quickslotshud.Designer.cs">
       <DependentUpon>Quickslotshud.cs</DependentUpon>
@@ -133,6 +134,70 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="SampleListMagnus.txt" />
+    <Content Include="WintersEbb\allToonsArmor.xml" />
+    <Content Include="WintersEbb\AllToonStats.xml" />
+    <Content Include="WintersEbb\Chip N Salsa\Chip N SalsaArmor.xml" />
+    <Content Include="WintersEbb\Chip N Salsa\Chip N SalsaInventory.xml" />
+    <Content Include="WintersEbb\Chip N Salsa\Chip N SalsaQuickSlots.xml" />
+    <Content Include="WintersEbb\Chip N Salsa\Chip N SalsaStats.xml" />
+    <Content Include="WintersEbb\Chip off de block\Chip off de blockArmor.xml" />
+    <Content Include="WintersEbb\Chip off de block\Chip off de blockInventory.xml" />
+    <Content Include="WintersEbb\Chip off de block\Chip off de blockQuickSlots.xml" />
+    <Content Include="WintersEbb\Chip off de block\Chip off de blockStats.xml" />
+    <Content Include="WintersEbb\Chipper VIII\Chipper VIIIArmor.xml" />
+    <Content Include="WintersEbb\Chipper VIII\Chipper VIIIInventory.xml" />
+    <Content Include="WintersEbb\Chipper VIII\Chipper VIIIQuickSlots.xml" />
+    <Content Include="WintersEbb\Chipper VIII\Chipper VIIIStats.xml" />
+    <Content Include="WintersEbb\Crrrrrrr\CrrrrrrrArmor.xml" />
+    <Content Include="WintersEbb\Crrrrrrr\CrrrrrrrInventory.xml" />
+    <Content Include="WintersEbb\Crrrrrrr\CrrrrrrrQuickSlots.xml" />
+    <Content Include="WintersEbb\Crrrrrrr\CrrrrrrrStats.xml" />
+    <Content Include="WintersEbb\Flying Gears\Flying GearsArmor.xml" />
+    <Content Include="WintersEbb\Flying Gears\Flying GearsInventory.xml" />
+    <Content Include="WintersEbb\Flying Gears\Flying GearsQuickSlots.xml" />
+    <Content Include="WintersEbb\Flying Gears\Flying GearsStats.xml" />
+    <Content Include="WintersEbb\Flying Gears\QuickSlotsh.xml" />
+    <Content Include="WintersEbb\Hiddenmule\HiddenmuleArmor.xml" />
+    <Content Include="WintersEbb\Hiddenmule\HiddenmuleInventory.xml" />
+    <Content Include="WintersEbb\Hiddenmule\HiddenmuleQuickSlots.xml" />
+    <Content Include="WintersEbb\Hiddenmule\HiddenmuleStats.xml" />
+    <Content Include="WintersEbb\holdingArmor.xml" />
+    <Content Include="WintersEbb\holdingInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\allToonsArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\AllToonStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip N Salsa\Chip N SalsaArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip N Salsa\Chip N SalsaInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip N Salsa\Chip N SalsaQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip N Salsa\Chip N SalsaStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip off de block\Chip off de blockArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip off de block\Chip off de blockInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip off de block\Chip off de blockQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chip off de block\Chip off de blockStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chipper VIII\Chipper VIIIArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chipper VIII\Chipper VIIIInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chipper VIII\Chipper VIIIQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Chipper VIII\Chipper VIIIStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Crrrrrrr\CrrrrrrrArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Crrrrrrr\CrrrrrrrInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Crrrrrrr\CrrrrrrrQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Crrrrrrr\CrrrrrrrStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Flying Gears\Flying GearsArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Flying Gears\Flying GearsInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Flying Gears\Flying GearsQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Flying Gears\Flying GearsStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\Flying Gears\QuickSlotsh.xml" />
+    <Content Include="WintersEbb\WintersEbb\Hiddenmule\HiddenmuleArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\Hiddenmule\HiddenmuleInventory.xml" />
+    <Content Include="WintersEbb\WintersEbb\Hiddenmule\HiddenmuleQuickSlots.xml" />
+    <Content Include="WintersEbb\WintersEbb\Hiddenmule\HiddenmuleStats.xml" />
+    <Content Include="WintersEbb\WintersEbb\holdingArmor.xml" />
+    <Content Include="WintersEbb\WintersEbb\holdingInventory.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WintersEbb\Chipper VIII\Chipper VIIISettings" />
+    <None Include="WintersEbb\Flying Gears\Flying GearsSettings" />
+    <None Include="WintersEbb\WintersEbb\Chipper VIII\Chipper VIIISettings" />
+    <None Include="WintersEbb\WintersEbb\Flying Gears\Flying GearsSettings" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
